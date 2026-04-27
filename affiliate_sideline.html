@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinterest Affiliate — Arthur's Playbook</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f0f0f;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
+      font-family: 'Georgia', serif;
+      color: #d4cbb8;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .header {
+      margin-bottom: 36px;
+      border-bottom: 0.5px solid #2a2a2a;
+      padding-bottom: 20px;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 400;
+      color: #e8e0cc;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #555;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .divider {
+      flex: 1;
+      height: 0.5px;
+      background: #222;
+    }
+
+    .hint {
+      font-size: 10px;
+      color: #444;
+      white-space: nowrap;
+    }
+
+    .steps-list, .platforms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .step {
+      background: #141414;
+      border: 0.5px solid #222;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      cursor: pointer;
+      transition: opacity 0.15s ease, background 0.15s ease;
+      user-select: none;
+    }
+
+    .step.done {
+      background: #141a14;
+      border-color: #2a3d2a;
+      opacity: 0.6;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1a2a3a;
+      border: 0.5px solid rgba(55, 138, 221, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #378ADD;
+      flex-shrink: 0;
+      font-family: monospace;
+      transition: all 0.15s ease;
+    }
+
+    .step.done .step-num {
+      background: #1e3d1e;
+      border-color: #3a6b3a;
+      color: #5a9e5a;
+    }
+
+    .step-title {
+      font-size: 14px;
+      color: #d4cbb8;
+      line-height: 1.4;
+      margin-bottom: 0;
+      transition: all 0.15s ease;
+    }
+
+    .step.done .step-title {
+      text-decoration: line-through;
+      color: #555;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #4a4a4a;
+      line-height: 1.5;
+      margin-top: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .step.done .step-desc {
+      display: none;
+    }
+
+    .platform {
+      background: #141414;
+      border: 0.5px solid #222;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .platform.highlight {
+      border-left: 2px solid #378ADD;
+    }
+
+    .platform.dim {
+      opacity: 0.5;
+    }
+
+    .platform-rank {
+      font-size: 20px;
+      font-weight: 400;
+      color: #333;
+      min-width: 28px;
+    }
+
+    .platform.highlight .platform-rank {
+      color: #378ADD;
+    }
+
+    .platform-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .platform-name {
+      font-size: 14px;
+      color: #d4cbb8;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .badge-blue { background: #E6F1FB; color: #185FA5; }
+    .badge-amber { background: #FAEEDA; color: #854F0B; }
+
+    .platform-url {
+      font-size: 12px;
+      color: #444;
+    }
+
+    .note {
+      background: #1a1500;
+      border: 0.5px solid #3d3000;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 28px;
+    }
+
+    .note-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #c49a2a;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .note-body {
+      font-size: 13px;
+      color: #7a6020;
+      line-height: 1.6;
+    }
+
+    .note-body span {
+      color: #c49a2a;
+    }
+
+    .footer {
+      font-size: 11px;
+      color: #2a2a2a;
+      text-align: center;
+      letter-spacing: 0.05em;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <p class="label">Affiliate playbook</p>
+      <h1>Pinterest × Affiliate</h1>
+      <p class="subtitle">Reference card — come back when your Postal ID is ready</p>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Step-by-step</span>
+        <div class="divider"></div>
+        <span class="hint">tap to check off</span>
+      </div>
+      <div class="steps-list" id="steps"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Platforms — in order</span>
+        <div class="divider"></div>
+      </div>
+      <div class="platforms-list" id="platforms"></div>
+    </div>
+
+    <div class="note">
+      <p class="note-title">Before anything else</p>
+      <p class="note-body">Get your Postal ID <span>(₱504)</span> → verify GCash → then sign up for platforms in order above.</p>
+    </div>
+
+    <p class="footer">pinterest affiliate strategy · arthur</p>
+
+  </div>
+
+  <script>
+    const steps = [
+      { num: 1, title: "Sign up for your affiliate platform", desc: "Involve Asia or Shopee Affiliates — get your account approved first" },
+      { num: 2, title: "Find a trending, best-selling product", desc: "Browse trending or best-seller categories inside your platform" },
+      { num: 3, title: "Create a Pinterest business account", desc: "Free to set up — use a niche name relevant to your product category" },
+      { num: 4, title: "Copy the product title, description & grab your affiliate link", desc: "Use the platform's link generator — this is the link that tracks your commission" },
+      { num: 5, title: "Create a pin — paste title, description, and destination link", desc: 'Use "Create Ad Pin" or standard pin — set destination link as your affiliate URL' },
+      { num: 6, title: "Publish the pin", desc: "Repeat with new products consistently — volume is how this strategy compounds" },
+    ];
+
+    const platforms = [
+      { rank: 1, name: "Involve Asia", url: "involveasia.com", desc: "GCash payout · PH merchants · low minimum withdrawal", badge: "Start here", badgeClass: "badge-blue", highlight: true, dim: false },
+      { rank: 2, name: "Shopee Affiliates", url: "affiliate.shopee.ph", desc: "ShopeePay → GCash · Filipinos already trust Shopee", badge: null, highlight: true, dim: false },
+      { rank: 3, name: "Lazada Affiliates", url: "lazada.com.ph/affiliates", desc: "Good backup · wide product range", badge: null, highlight: false, dim: false },
+      { rank: 4, name: "Amazon Associates", url: "affiliate-program.amazon.com", desc: "Highest earning potential · unlock this last", badge: "After bank account", badgeClass: "badge-amber", highlight: false, dim: true },
+    ];
+
+    const done = new Set(JSON.parse(localStorage.getItem("done_steps") || "[]"));
+
+    function saveState() {
+      localStorage.setItem("done_steps", JSON.stringify([...done]));
+    }
+
+    function renderSteps() {
+      const container = document.getElementById("steps");
+      container.innerHTML = "";
+      steps.forEach(step => {
+        const isDone = done.has(step.num);
+        const el = document.createElement("div");
+        el.className = "step" + (isDone ? " done" : "");
+        el.innerHTML = `
+          <div class="step-num">${isDone ? "✓" : step.num}</div>
+          <div>
+            <p class="step-title">${step.title}</p>
+            <p class="step-desc">${step.desc}</p>
+          </div>
+        `;
+        el.addEventListener("click", () => {
+          if (done.has(step.num)) done.delete(step.num);
+          else done.add(step.num);
+          saveState();
+          renderSteps();
+        });
+        container.appendChild(el);
+      });
+    }
+
+    function renderPlatforms() {
+      const container = document.getElementById("platforms");
+      container.innerHTML = "";
+      platforms.forEach(p => {
+        const el = document.createElement("div");
+        el.className = "platform" + (p.highlight ? " highlight" : "") + (p.dim ? " dim" : "");
+        el.innerHTML = `
+          <span class="platform-rank">${p.rank}</span>
+          <div>
+            <div class="platform-name-row">
+              <span class="platform-name">${p.name}</span>
+              ${p.badge ? `<span class="badge ${p.badgeClass}">${p.badge}</span>` : ""}
+            </div>
+            <p class="platform-url">${p.url} · ${p.desc}</p>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    renderSteps();
+    renderPlatforms();
+  </script>
+</body>
+</html>
