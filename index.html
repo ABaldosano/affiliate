@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,268 +9,186 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── LIGHT ── */
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --surface: #f8f8f6;
+      --border: #e0ddd8;
+      --text: #1a1a1a;
+      --text-dim: #333;
+      --text-muted: #666;
+      --text-faint: #aaa;
+      --gold: #b8860b;
+      --gold-light: #fdf6e3;
+      --gold-border: #e8c84a;
+      --blue: #1a5276;
+      --blue-light: #eaf4fb;
+      --blue-border: #7db8d8;
+      --green: #2d6a2d;
+      --green-light: #f0f7f0;
+      --green-border: #7dba7d;
+      --header-rule: #1a1a1a;
+      --toggle-bg: #f0ede8;
+      --toggle-border: #d0cdc8;
+      --toggle-color: #555;
+      --step-bg: #f8f8f6;
+      --step-border: #e0ddd8;
+      --step-hover: #f2f0ec;
+      --step-done-bg: #f0f7f0;
+      --step-done-border: #7dba7d;
+      --platform-bg: #f8f8f6;
+      --platform-border: #e0ddd8;
+      --platform-hi-bg: #eaf4fb;
+      --platform-hi-border: #7db8d8;
+      --note-bg: #fdf6e3;
+      --note-border: #e8c84a;
+      --note-text: #5a4010;
+      --footer-color: #ccc;
+    }
+
+    /* ── DARK ── */
+    [data-theme="dark"] {
+      --bg: #0e0c0a;
+      --surface: #13110e;
+      --border: #2a2520;
+      --text: #e8e0d0;
+      --text-dim: #b0a898;
+      --text-muted: #9a9080;
+      --text-faint: #555;
+      --gold: #c9a84c;
+      --gold-light: #1c1700;
+      --gold-border: #5a4a10;
+      --blue: #8ab4d4;
+      --blue-light: #080e14;
+      --blue-border: #1a3a52;
+      --green: #7dba7d;
+      --green-light: #0a140a;
+      --green-border: #2d4a2d;
+      --header-rule: #3a3530;
+      --toggle-bg: #1e1c18;
+      --toggle-border: #3a3530;
+      --toggle-color: #aaa;
+      --step-bg: #13110e;
+      --step-border: #2a2520;
+      --step-hover: #1a1814;
+      --step-done-bg: #0a140a;
+      --step-done-border: #2d4a2d;
+      --platform-bg: #13110e;
+      --platform-border: #2a2520;
+      --platform-hi-bg: #080e14;
+      --platform-hi-border: #1a3a52;
+      --note-bg: #1c1700;
+      --note-border: #5a4a10;
+      --note-text: #c49a2a;
+      --footer-color: #3a3530;
+    }
+
     body {
-      background: #ffffff;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 40px 16px;
       font-family: 'Inter', sans-serif;
-      color: #1a1a1a;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-    }
+    .container { width: 100%; max-width: 600px; }
 
-    .header {
-      margin-bottom: 36px;
-      border-bottom: 2px solid #1a1a1a;
-      padding-bottom: 22px;
+    /* Toggle */
+    .theme-toggle {
+      position: fixed; top: 18px; right: 18px; z-index: 999;
+      background: var(--toggle-bg); border: 1.5px solid var(--toggle-border);
+      border-radius: 50px; padding: 6px 14px;
+      cursor: pointer; display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700; color: var(--toggle-color);
+      font-family: 'Inter', sans-serif; transition: all 0.2s;
+      user-select: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+    .theme-toggle:hover { opacity: 0.85; }
 
-    .label {
-      font-size: 11px;
-      letter-spacing: 4px;
-      color: #b8860b;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
+    .header { margin-bottom: 36px; border-bottom: 2px solid var(--header-rule); padding-bottom: 22px; transition: border-color 0.3s; }
+    .label { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+    h1 { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+    .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 500; }
 
-    h1 {
-      font-size: 30px;
-      font-weight: 800;
-      color: #1a1a1a;
-      line-height: 1.2;
-      margin-bottom: 8px;
-      font-family: 'Playfair Display', serif;
-    }
+    .section { margin-bottom: 36px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .section-label { font-size: 10px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; font-weight: 700; }
+    .divider { flex: 1; height: 1px; background: var(--border); }
+    .hint { font-size: 10px; color: var(--text-faint); white-space: nowrap; font-weight: 600; }
 
-    .subtitle {
-      font-size: 14px;
-      color: #666;
-      font-weight: 500;
-    }
-
-    .section {
-      margin-bottom: 36px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .section-label {
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: #888;
-      text-transform: uppercase;
-      white-space: nowrap;
-      font-weight: 700;
-    }
-
-    .divider {
-      flex: 1;
-      height: 1px;
-      background: #e0ddd8;
-    }
-
-    .hint {
-      font-size: 10px;
-      color: #aaa;
-      white-space: nowrap;
-      font-weight: 600;
-    }
-
-    .steps-list, .platforms-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .steps-list, .platforms-list { display: flex; flex-direction: column; gap: 8px; }
 
     .step {
-      background: #f8f8f6;
-      border: 1.5px solid #e0ddd8;
-      border-radius: 10px;
-      padding: 16px 18px;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      cursor: pointer;
-      transition: opacity 0.15s ease, background 0.15s ease;
-      user-select: none;
+      background: var(--step-bg); border: 1.5px solid var(--step-border);
+      border-radius: 10px; padding: 16px 18px;
+      display: flex; align-items: flex-start; gap: 14px;
+      cursor: pointer; transition: all 0.15s ease; user-select: none;
     }
-
-    .step:hover { background: #f2f0ec; }
-
-    .step.done {
-      background: #f0f7f0;
-      border-color: #7dba7d;
-      opacity: 0.65;
-    }
+    .step:hover { background: var(--step-hover); }
+    .step.done { background: var(--step-done-bg); border-color: var(--step-done-border); opacity: 0.65; }
 
     .step-num {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #eaf4fb;
-      border: 2px solid #7db8d8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: #1a5276;
-      flex-shrink: 0;
-      font-weight: 800;
-      transition: all 0.15s ease;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--blue-light); border: 2px solid var(--blue-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--blue); flex-shrink: 0;
+      font-weight: 800; transition: all 0.15s ease;
     }
+    .step.done .step-num { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
 
-    .step.done .step-num {
-      background: #f0f7f0;
-      border-color: #7dba7d;
-      color: #2d6a2d;
-    }
-
-    .step-title {
-      font-size: 15px;
-      color: #1a1a1a;
-      line-height: 1.4;
-      font-weight: 700;
-      transition: all 0.15s ease;
-    }
-
-    .step.done .step-title {
-      text-decoration: line-through;
-      color: #aaa;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-      margin-top: 5px;
-      font-weight: 500;
-      transition: all 0.15s ease;
-    }
-
-    .step.done .step-desc {
-      display: none;
-    }
+    .step-title { font-size: 15px; color: var(--text); line-height: 1.4; font-weight: 700; transition: all 0.15s ease; }
+    .step.done .step-title { text-decoration: line-through; color: var(--text-faint); }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-top: 5px; font-weight: 500; transition: all 0.15s ease; }
+    .step.done .step-desc { display: none; }
 
     .platform {
-      background: #f8f8f6;
-      border: 1.5px solid #e0ddd8;
-      border-radius: 10px;
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      background: var(--platform-bg); border: 1.5px solid var(--platform-border);
+      border-radius: 10px; padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px;
+      transition: background 0.3s;
     }
+    .platform.highlight { border-left: 4px solid var(--blue); background: var(--platform-hi-bg); border-color: var(--platform-hi-border); border-left-color: var(--blue); }
+    .platform.dim { opacity: 0.45; }
 
-    .platform.highlight {
-      border-left: 4px solid #1a5276;
-      background: #eaf4fb;
-      border-color: #7db8d8;
-      border-left-color: #1a5276;
-    }
+    .platform-rank { font-size: 22px; font-weight: 800; color: var(--border); min-width: 28px; }
+    .platform.highlight .platform-rank { color: var(--blue); }
+    .platform-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .platform-name { font-size: 15px; color: var(--text); font-weight: 700; }
 
-    .platform.dim {
-      opacity: 0.45;
-    }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; letter-spacing: 0.5px; }
+    .badge-blue { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+    .badge-amber { background: var(--gold-light); color: var(--gold); border: 1px solid var(--gold-border); }
 
-    .platform-rank {
-      font-size: 22px;
-      font-weight: 800;
-      color: #ccc;
-      min-width: 28px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .platform.highlight .platform-rank {
-      color: #1a5276;
-    }
-
-    .platform-name-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-
-    .platform-name {
-      font-size: 15px;
-      color: #1a1a1a;
-      font-weight: 700;
-    }
-
-    .badge {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 9px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    .badge-blue { background: #eaf4fb; color: #1a5276; border: 1px solid #7db8d8; }
-    .badge-amber { background: #fdf6e3; color: #b8860b; border: 1px solid #e8c84a; }
-
-    .platform-url {
-      font-size: 13px;
-      color: #666;
-      font-weight: 500;
-      line-height: 1.5;
-    }
+    .platform-url { font-size: 13px; color: var(--text-muted); font-weight: 500; line-height: 1.5; }
 
     .note {
-      background: #fdf6e3;
-      border: 1.5px solid #e8c84a;
-      border-left: 4px solid #b8860b;
-      border-radius: 0 10px 10px 0;
-      padding: 16px 18px;
-      margin-bottom: 28px;
+      background: var(--note-bg); border: 1.5px solid var(--gold-border);
+      border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0;
+      padding: 16px 18px; margin-bottom: 28px; transition: background 0.3s;
     }
-
-    .note-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: #b8860b;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .note-body {
-      font-size: 14px;
-      color: #5a4010;
-      line-height: 1.7;
-      font-weight: 600;
-    }
-
-    .note-body span {
-      color: #b8860b;
-      font-weight: 800;
-    }
+    .note-title { font-size: 12px; font-weight: 800; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+    .note-body { font-size: 14px; color: var(--note-text); line-height: 1.7; font-weight: 600; }
+    .note-body span { color: var(--gold); font-weight: 800; }
 
     .footer {
-      font-size: 11px;
-      color: #ccc;
-      text-align: center;
-      letter-spacing: 3px;
-      margin-top: 8px;
-      text-transform: uppercase;
-      font-weight: 700;
-      padding-top: 20px;
-      border-top: 2px solid #1a1a1a;
+      font-size: 11px; color: var(--footer-color); text-align: center;
+      letter-spacing: 3px; margin-top: 8px; text-transform: uppercase;
+      font-weight: 700; padding-top: 20px; border-top: 2px solid var(--header-rule);
+      transition: border-color 0.3s;
     }
   </style>
 </head>
 <body>
+
+  <button class="theme-toggle" onclick="toggleTheme()" id="toggleBtn">
+    <span id="toggleIcon">🌙</span>
+    <span id="toggleLabel">Dark</span>
+  </button>
+
   <div class="container">
 
     <div class="header">
@@ -323,10 +241,7 @@
     ];
 
     const done = new Set(JSON.parse(localStorage.getItem("done_steps") || "[]"));
-
-    function saveState() {
-      localStorage.setItem("done_steps", JSON.stringify([...done]));
-    }
+    function saveState() { localStorage.setItem("done_steps", JSON.stringify([...done])); }
 
     function renderSteps() {
       const container = document.getElementById("steps");
@@ -340,13 +255,11 @@
           <div>
             <p class="step-title">${step.title}</p>
             <p class="step-desc">${step.desc}</p>
-          </div>
-        `;
+          </div>`;
         el.addEventListener("click", () => {
           if (done.has(step.num)) done.delete(step.num);
           else done.add(step.num);
-          saveState();
-          renderSteps();
+          saveState(); renderSteps();
         });
         container.appendChild(el);
       });
@@ -366,11 +279,23 @@
               ${p.badge ? `<span class="badge ${p.badgeClass}">${p.badge}</span>` : ""}
             </div>
             <p class="platform-url">${p.url} · ${p.desc}</p>
-          </div>
-        `;
+          </div>`;
         container.appendChild(el);
       });
     }
+
+    // Theme toggle
+    const html = document.documentElement;
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('pinterest-theme', theme);
+      document.getElementById('toggleIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
+      document.getElementById('toggleLabel').textContent = theme === 'dark' ? 'Light' : 'Dark';
+    }
+    function toggleTheme() { applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+
+    const savedTheme = localStorage.getItem('pinterest-theme');
+    if (savedTheme) applyTheme(savedTheme);
 
     renderSteps();
     renderPlatforms();
